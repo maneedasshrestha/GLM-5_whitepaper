@@ -39,7 +39,7 @@ GLM-5 can be accessed through multiple channels:
 \begin{itemize}
     \item \textbf{Direct API}: Zhipu AI's ZAI platform subscription
     \item \textbf{Third-party providers}: Alibaba Cloud, through Claude Code integration
-    \item \textbf{IDE extensions}: Kilocode (free tier available), Roo Code, OpenCode
+    \item \textbf{IDE extensions}: Kilocode, Roo Code, OpenCode
     \item \textbf{Local deployment}: Theoretically possible but impractical due to model size
 \end{itemize}
 
@@ -66,10 +66,10 @@ This paper addresses three primary research questions:
 \subsection{Benchmarks for AI Code Generation}
 The evaluation of AI coding assistants has evolved through several benchmark generations. HumanEval \cite{chen2021evaluating} established an early standard through 164 Python programming problems, but has been widely criticized for narrow scope and susceptibility to data contamination \cite{fryer2024hallucination}. SWE-bench \cite{jimenez2024swebench} advanced the field by using real GitHub issues requiring multi-file patches.
 
-GLM-5's performance on SWE-bench Verified and SWE-bench Pro places it competitively among frontier models, though specific leaderboard positions remain in flux as both the model and benchmarks evolve. Critically, these benchmarks measure correctness of isolated patches but not the holistic workflow characteristics---session-level context management, architectural consistency, iterative refinement---that determine real-world utility.
+GLM-5's performance on SWE-bench Verified and SWE-bench Pro places it competitively among frontier models, though specific leaderboard positions remain in flux as both the model and benchmarks evolve. Critically, these benchmarks measure correctness of isolated patches but not the holistic workflow characteristics, such as session-level context management, architectural consistency, and iterative refinement, that determine real-world utility.
 
 \subsection{Hallucination in Code Generation}
-A critical but often underreported metric for coding assistants is the hallucination rate---the frequency with which models generate plausible but incorrect or fabricated information. Our evaluation revealed a significant finding: GLM-5 exhibits a hallucination rate of approximately 34\%, notably lower than Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%) as measured in comparable coding tasks \cite{fryer2024hallucination}.
+A critical but often underreported metric for coding assistants is the hallucination rate, the frequency with which models generate plausible but incorrect or fabricated information. Our evaluation revealed a significant finding: GLM-5 exhibits a hallucination rate of approximately 34\%, notably lower than Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%) as measured in comparable coding tasks \cite{fryer2024hallucination}.
 
 This characteristic has profound implications for production use: lower hallucination rates translate to higher trust reliability, reduced debugging overhead, and more accurate architectural reasoning.
 
@@ -110,7 +110,7 @@ GLM-5 was evaluated across multiple task categories over five days:
 
 \textbf{Day 2}: Context retention testing, PR comment resolution, memory persistence evaluation
 
-\textbf{Day 3}: Full-stack feature implementation---Pinterest default board selection (24 files modified/created)
+\textbf{Day 3}: Full-stack feature implementation (Pinterest default board selection, 24 files modified/created)
 
 \textbf{Day 4}: Multi-persona architectural test, rate limiting behavior, role-based prompting evaluation
 
@@ -258,7 +258,7 @@ A standout capability of GLM-5 is its reliable context retention over extended s
 \textbf{Observed Quote}: ``Has a 200k context window which is quite reliable even in long sessions.''
 
 \subsubsection{Latency Profile}
-The most significant friction point observed was GLM-5's execution speed. The Pinterest default board feature implementation required approximately 20 minutes---excluding planning time. This latency appears tied to the API provider rather than the model itself:
+The most significant friction point observed was GLM-5's execution speed. The Pinterest default board feature implementation required approximately 20 minutes, excluding planning time. This latency appears tied to the API provider rather than the model itself:
 
 \begin{itemize}
     \item \textbf{Alibaba Cloud API}: Consistently slow, with multiple user reports confirming the issue
@@ -330,7 +330,7 @@ A unique consideration for GLM-5 is the provider ecosystem variability. Unlike p
 \begin{itemize}
     \item \textbf{ZAI Direct}: Optimal performance, higher cost
     \item \textbf{Alibaba Cloud}: Acceptable but slower, more economical
-    \item \textbf{Kilocode Free Tier}: Functional for evaluation, limited by rate limits
+    \item \textbf{Kilocode}: Functional for evaluation, limited by rate limits
 \end{itemize}
 
 Organizations must evaluate both cost and performance trade-offs when selecting a provider.
