@@ -128,7 +128,7 @@ GLM-5 was evaluated across multiple task categories over five days:
 \section{Results}
 
 \subsection{Quantitative Rubric Scores}
-Table \ref{tab:category_scores} presents category-level scores; the full 26-criterion breakdown is in Table \ref{tab:full_rubric}. The weighted mean was 4.28 / 5.00 (85.6\%).
+Table \ref{tab:category_scores} presents category-level scores; the full 26-criterion breakdown is in Table \ref{tab:full_rubric}. The weighted mean was 4.23 / 5.00 (84.6\%).
 
 \begin{table}[H]
 \caption{Category-Level Rubric Scores (1 to 5 scale)}
@@ -142,13 +142,13 @@ Table \ref{tab:category_scores} presents category-level scores; the full 26-crit
 Workflow and Setup & 5.00 \\
 Code Generation Quality & 4.75 \\
 Context and Memory & 4.40 \\
-Architecture and Planning & 4.25 \\
+Architecture and Planning & 3.75 \\
 Problem Solving & 4.50 \\
 Documentation & 5.00 \\
 Operational / Non-Functional & 3.20 \\
 Overall Productivity Impact & 5.00 \\
 \midrule
-\textbf{Overall Weighted Mean} & \textbf{4.31} \\
+\textbf{Overall Weighted Mean} & \textbf{4.23} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -183,7 +183,7 @@ Overall Productivity Impact & 5.00 \\
  & Feature Planning & 4 \\
  & Architecture Summary & 5 \\
  & Multi-Step / Role-Based & 5 \\
- & Sub-Agent Support & 3 \\
+ & Sub-Agent Support & 1 \\
 \cmidrule(l){2-3}
 \multirow{4}{*}{Problem Solving}
  & Bug Finding \& Fixing & 4 \\
@@ -293,9 +293,9 @@ A consistent pattern emerged: GLM-5 excels at the planning phase but lags in exe
 Rate limiting behavior was moderate but not excessive, though the model repeatedly requested continuation prompts. After approximately 1.5 hours of continuous operation, the terminal became unresponsive and required restart. This threshold is reasonable for most development sessions.
 
 \subsubsection{Sub-Agent Support}
-GLM-5's sub-agent capability is framework-dependent. The model itself supports agent workflows, planning, and tool calling. However, sub-agent orchestration must be implemented by the hosting framework (Claude Code in our evaluation).
+GLM-5 does not support sub-agent orchestration in our evaluation setup (Alibaba Cloud API via Claude Code). When Claude Code attempted to spawn sub-agents, GLM-5 consistently timed out and returned API errors, making sub-agent workflows entirely non-functional. The model supports basic agent workflows such as planning and tool calling within a single agent context, but it cannot coordinate parallel sub-agents as required for complex, multi-file task decomposition.
 
-\textbf{Assessment}: Partially capable. True for agent workflows and parallel tool execution; misleading for native sub-agent implementation.
+\textbf{Assessment}: Not functional. Sub-agent dispatch fails with timeout and API errors through the Alibaba Cloud provider. Teams requiring sub-agent capabilities should not rely on GLM-5 in this configuration.
 
 \subsection{Bug Finding and Technical Debt Assessment}
 GLM-5 demonstrated mixed results:
