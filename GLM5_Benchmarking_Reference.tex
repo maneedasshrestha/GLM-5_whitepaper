@@ -138,15 +138,15 @@ Table \ref{tab:category_scores} presents category-level scores; the full 26-crit
 \textbf{Category} & \textbf{Mean Rating} \\
 \midrule
 Workflow and Setup & 5.00 (Excellent) \\
-Code Generation Quality & 5.00 (Excellent) \\
+Code Generation Quality & 4.75 (Strong) \\
 Context and Memory & 4.40 (Strong) \\
-Architecture and Planning & 4.75 (Excellent) \\
+Architecture and Planning & 4.25 (Strong) \\
 Problem Solving & 4.50 (Strong) \\
 Documentation & 5.00 (Excellent) \\
-Operational / Non-Functional & 2.75 (Below Average) \\
+Operational / Non-Functional & 3.20 (Below Average) \\
 Overall Productivity Impact & 5.00 (Excellent) \\
 \midrule
-\textbf{Overall Weighted Mean} & \textbf{4.28 (Strong)} \\
+\textbf{Overall Weighted Mean} & \textbf{4.31 (Strong)} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -163,7 +163,7 @@ Overall Productivity Impact & 5.00 (Excellent) \\
  & Learning Curve & 5 \\
 \midrule
 \multirow{4}{*}{Code Generation} & Accuracy \& Correctness & 5 \\
- & Feature Creation & 5 \\
+ & Feature Creation & 4 \\
  & Maintainability & 5 \\
  & Code Consistency & 5 \\
 \midrule
@@ -173,7 +173,7 @@ Overall Productivity Impact & 5.00 (Excellent) \\
  & Token Efficiency & 5 \\
  & Project-Level Instructions & 4 \\
 \midrule
-\multirow{4}{*}{Architecture \& Planning} & Feature Planning & 5 \\
+\multirow{4}{*}{Architecture \& Planning} & Feature Planning & 4 \\
  & Architecture Summary & 5 \\
  & Multi-Step / Role-Based & 5 \\
  & Sub-Agent Support & 3 \\
@@ -253,7 +253,7 @@ C2. Weakness Detection & 15 & 15 \\
 \subsection{Observed Workflow Behavior}
 
 \subsubsection{Context Retention}
-A standout capability of GLM-5 is its reliable context retention over extended sessions. The 200K token context window proved consistently reliable even during the 20-minute Pinterest feature implementation involving 24 files. Unlike some models that exhibit context degradation over long sessions, GLM-5 maintained coherence throughout.
+A standout capability of GLM-5 is its reliable context retention over extended sessions. The 200K token context window proved consistently reliable even during the Pinterest feature implementation involving 24 files. Unlike some models that exhibit context degradation over long sessions, GLM-5 maintained coherence throughout. However, the Pinterest default board feature required three implementation iterations to achieve the desired result, reflecting the Feature Planning score of 4/5 rather than a perfect 5/5.
 
 \textbf{Observed Quote}: ``Has a 200k context window which is quite reliable even in long sessions.''
 
@@ -268,7 +268,7 @@ The most significant friction point observed was GLM-5's execution speed. The Pi
 \textbf{Observed Quote}: ``Painfully slow in large tasks that include changes to a large number of files... Did some research to double check that it wasn't a fault in our end, and found that multiple people were complaining about this very aspect of the model's speed being unbearable in recent times.''
 
 \subsubsection{Planning vs. Execution Asymmetry}
-A consistent pattern emerged: GLM-5 excels at the planning phase but lags in execution speed. The model demonstrated superior codebase analysis and step planning, but the actual code generation for multi-file tasks was notably slower than alternatives.
+A consistent pattern emerged: GLM-5 excels at the planning phase but lags in execution speed. The model demonstrated superior codebase analysis and step planning, but the actual code generation for multi-file tasks was notably slower than alternatives. For complex features like the Pinterest board implementation, the planning phase extended to 15--20 minutes of thinking time before code generation began, and the initial implementation required three iterations to achieve production quality.
 
 \textbf{Observed Quote}: ``Through the limited testing we have performed, we found it to be better at analyzing the codebase and planning the steps. The part it falls behind is the execution.''
 
@@ -287,6 +287,13 @@ GLM-5 demonstrated mixed results:
     \item \textbf{Existing codebase}: Mixed, inconsistent results for bug finding
     \item \textbf{Technical debt identification}: Strong capability to analyze code and generate refactoring recommendations
 \end{itemize}
+
+\subsection{Feature Creation Iterations}
+Complex feature implementations revealed nuanced behavior. The Pinterest default board feature---a multi-file feature involving 24 files---required three implementation iterations before achieving the desired result. Smaller, self-contained features compiled on the first attempt with high accuracy.
+
+\textbf{Observed Pattern}: Features requiring cross-file coordination and architectural integration tend to need refinement iterations, while isolated feature additions succeed on the first attempt. This behavior explains the 4/5 rating for Feature Creation despite strong individual code accuracy.
+
+The planning phase for complex features extended to 15--20 minutes, during which GLM-5 analyzed the codebase and structured the implementation approach. While thorough, this extended thinking time combined with iteration requirements impacts productivity for rapid development workflows.
 
 \subsection{Documentation Generation}
 A consistent strength: GLM-5 excels at proper documentation of codebases. The model generated clear, comprehensive documentation with appropriate formatting and structure. This capability scored 5/5 on the rubric.
@@ -373,7 +380,7 @@ Two criteria receiving low scores represent genuine friction:
 \section{Conclusion}
 This paper evaluated GLM-5 as an AI coding assistant through a practitioner benchmark grounded in production feature implementation. We address our three research questions as follows:
 
-\textbf{Q1 (Core Capability)}. GLM-5 functions effectively as an AI coding assistant for structured, convention-driven codebases. Its strengths---context retention, architectural reasoning, and documentation generation---consistently scored 5/5. The model maintained coherence across a 24-file feature implementation and achieved 89/100 on the multi-persona architectural test.
+\textbf{Q1 (Core Capability)}. GLM-5 functions effectively as an AI coding assistant for structured, convention-driven codebases. Its strengths---context retention, architectural reasoning, and documentation generation---consistently scored 5/5. The model maintained coherence across a 24-file feature implementation and achieved 89/100 on the multi-persona architectural test. However, complex feature implementations may require multiple iterations (the Pinterest feature required three attempts), resulting in Feature Planning and Feature Creation scores of 4/5 rather than the perfect scores initially anticipated.
 
 \textbf{Q2 (Operational Characteristics)}. The most significant operational finding is GLM-5's hallucination advantage (34\% vs.\ 58--60\% for comparable Claude models). Latency is the primary friction point, varying by provider from acceptable to problematic. The cost-to-intelligence ratio is competitive, particularly through third-party providers.
 
