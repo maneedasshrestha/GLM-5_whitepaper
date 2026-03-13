@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage{float}
 \usepackage{url}
+\usepackage{balance}
 
 \begin{document}
 
@@ -20,9 +21,9 @@
 \maketitle
 
 \begin{abstract}
-GLM-5 (Zhipu AI, 2025) represents a significant open-weights entrant in the AI coding assistant landscape, offering a 1.5-terabyte parameter model with a 200K token context window at a competitive cost-to-intelligence ratio. This paper presents a practitioner benchmark evaluation of GLM-5, conducted through a five-day evaluation period involving real-world feature implementation in a production SaaS codebase. We assess GLM-5 holistically across seven dimensions: workflow integration, code generation quality, contextual reasoning, architectural adherence, problem-solving capability, documentation generation, and operational characteristics including latency, cost, and hallucination behavior.
+GLM-5 (Zhipu AI, 2025) is an open-weights model with 1.5 terabytes of parameters and a 200K token context window. We evaluate it as an AI coding assistant through a five-day practitioner benchmark involving real feature implementation in a production SaaS codebase, assessing seven dimensions: workflow integration, code generation quality, contextual reasoning, architectural adherence, problem-solving capability, documentation generation, and operational characteristics.
 
-Our evaluation employs a 26-criterion rubric supplemented by a multi-persona architectural test scoring 89/100, and triangulated against published benchmarks and comparative model analyses. We find that GLM-5 demonstrates exceptional strength in context retention, architectural planning, and documentation generation, while exhibiting notable friction in execution speed for large multi-file tasks. Notably, GLM-5 exhibits the lowest hallucination rate (34\%) among frontier models tested, compared to Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). These findings offer practical guidance for development teams evaluating open-weights AI coding assistants for integration into production workflows.
+Using a 26-criterion rubric, a multi-persona architectural test (89/100), and published benchmark triangulation, we find that GLM-5 excels at context retention, architectural planning, and documentation generation, but shows friction in execution speed for large multi-file tasks. GLM-5 exhibits the lowest hallucination rate (34\%) among frontier models tested, compared to Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). These findings offer practical guidance for teams evaluating open-weights AI coding assistants for production use.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -30,9 +31,9 @@ GLM-5, open-weights LLM, AI coding assistant, benchmark, context retention, hall
 \end{IEEEkeywords}
 
 \section{Introduction}
-The landscape of AI-assisted software development has expanded rapidly, with proprietary models from Anthropic, OpenAI, and GitHub dominating the conversation. However, the emergence of open-weights models presents a compelling alternative for organizations seeking transparency, cost efficiency, and deployment flexibility.
+AI-assisted software development is now dominated by proprietary models from Anthropic, OpenAI, and GitHub. Open-weights models, however, offer a practical alternative for organizations that need transparency, cost efficiency, and deployment flexibility.
 
-GLM-5, developed by Zhipu AI, represents a significant milestone in this evolution. Released in early 2026, GLM-5 is an open-weights model with approximately 1.5 terabytes of parameters, making it one of the largest publicly available language models. The model offers a 200K token context window, competitive pricing through various API providers, and notably, the lowest hallucination rate among frontier models evaluated in this study.
+GLM-5, developed by Zhipu AI, was released in early 2026 as an open-weights model with roughly 1.5 terabytes of parameters, making it one of the largest publicly available language models. The model offers a 200K token context window, competitive pricing through various API providers, and notably, the lowest hallucination rate among frontier models evaluated in this study.
 
 \subsection{GLM-5: Technical Overview}
 GLM-5 can be accessed through multiple channels:
@@ -47,7 +48,7 @@ The model's most distinctive characteristics include:
 \begin{itemize}
     \item \textbf{Open weights}: Full model weights publicly available
     \item \textbf{200K context window}: Reliable long-context retention across extended sessions
-    \item \textbf{Low hallucination rate}: 34\% compared to 58--60\% for comparable Claude models
+    \item \textbf{Low hallucination rate}: 34\% compared to 58 to 60\% for comparable Claude models
     \item \textbf{Limited multi-modality}: No native image processing; relies on external tools
     \item \textbf{Variable inference speed}: Significantly dependent on API provider
 \end{itemize}
@@ -69,17 +70,17 @@ The evaluation of AI coding assistants has evolved through several benchmark gen
 GLM-5's performance on SWE-bench Verified and SWE-bench Pro places it competitively among frontier models, though specific leaderboard positions remain in flux as both the model and benchmarks evolve. Critically, these benchmarks measure correctness of isolated patches but not the holistic workflow characteristics, such as session-level context management, architectural consistency, and iterative refinement, that determine real-world utility.
 
 \subsection{Hallucination in Code Generation}
-A critical but often underreported metric for coding assistants is the hallucination rate, the frequency with which models generate plausible but incorrect or fabricated information. Our evaluation revealed a significant finding: GLM-5 exhibits a hallucination rate of approximately 34\%, notably lower than Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%) as measured in comparable coding tasks \cite{fryer2024hallucination}.
+A critical but often underreported metric for coding assistants is the hallucination rate, or how often models generate plausible but incorrect or fabricated information. Our evaluation revealed a significant finding: GLM-5 exhibits a hallucination rate of approximately 34\%, notably lower than Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%) as measured in comparable coding tasks \cite{fryer2024hallucination}.
 
-This characteristic has profound implications for production use: lower hallucination rates translate to higher trust reliability, reduced debugging overhead, and more accurate architectural reasoning.
+In practice, a lower hallucination rate means higher trust reliability, less debugging overhead, and more accurate architectural reasoning.
 
 \subsection{Developer Productivity Studies}
 A landmark randomized controlled trial involving over 4,000 developers found that GitHub Copilot reduced mean task completion time by approximately 55\% for new coding tasks \cite{peng2023copilot}. However, METR's contrarian finding \cite{metr2025} observed a 19\% \textit{increase} in task completion time for experienced developers on complex, unfamiliar codebases.
 
-These findings suggest that productivity gains from AI coding tools depend heavily on the collaboration model employed. Our evaluation explores whether GLM-5's strengths in planning and context retention can overcome its execution speed limitations when paired with experienced developers who retain architectural ownership.
+These findings suggest that productivity gains from AI coding tools depend heavily on how the developer and tool collaborate. Our evaluation explores whether GLM-5's strengths in planning and context retention can overcome its execution speed limitations when paired with experienced developers who retain architectural ownership.
 
 \subsection{Comparative Landscape}
-As of 2026, AI coding assistants bifurcate along several dimensions:
+As of 2026, AI coding assistants split along several lines:
 
 \begin{itemize}
     \item \textbf{Proprietary vs. Open-weights}: Claude, GPT, Copilot (proprietary) vs. GLM-5, Llama (open-weights)
@@ -87,7 +88,7 @@ As of 2026, AI coding assistants bifurcate along several dimensions:
     \item \textbf{Autocomplete vs. Agentic}: Single-line completion vs. task delegation
 \end{itemize}
 
-GLM-5 occupies a unique position: an open-weights model accessible through agentic CLI frameworks (Claude Code, Kilocode) while offering enterprise-grade capabilities at a competitive price point.
+GLM-5 sits between these categories: an open-weights model accessible through agentic CLI frameworks (Claude Code, Kilocode) that offers enterprise-grade capabilities at a competitive price point.
 
 \section{Methodology}
 
@@ -101,7 +102,7 @@ The evaluation was conducted on a production SaaS platform for social media cont
     \item \textbf{Frontend}: Flutter mobile application with Clean Framework and Riverpod v3 state management
 \end{itemize}
 
-The codebase represents an authentic evaluation environment: non-trivial architectural conventions, strict layer boundaries, established pattern libraries, and a running Docker Compose stack for integration verification.
+The codebase is a realistic evaluation environment: non-trivial architectural conventions, strict layer boundaries, established pattern libraries, and a running Docker Compose stack for integration verification.
 
 \subsection{Evaluation Tasks}
 GLM-5 was evaluated across multiple task categories over five days:
@@ -130,71 +131,79 @@ GLM-5 was evaluated across multiple task categories over five days:
 Table \ref{tab:category_scores} presents category-level scores; the full 26-criterion breakdown is in Table \ref{tab:full_rubric}. The weighted mean was 4.28 / 5.00 (85.6\%).
 
 \begin{table}[H]
-\caption{Category-Level Rubric Scores}
+\caption{Category-Level Rubric Scores (1 to 5 scale)}
 \label{tab:category_scores}
 \centering
-\begin{tabular}{lc}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lr@{}}
 \toprule
-\textbf{Category} & \textbf{Mean Rating} \\
+\textbf{Category} & \textbf{Mean} \\
 \midrule
-Workflow and Setup & 5.00 (Excellent) \\
-Code Generation Quality & 4.75 (Strong) \\
-Context and Memory & 4.40 (Strong) \\
-Architecture and Planning & 4.25 (Strong) \\
-Problem Solving & 4.50 (Strong) \\
-Documentation & 5.00 (Excellent) \\
-Operational / Non-Functional & 3.20 (Below Average) \\
-Overall Productivity Impact & 5.00 (Excellent) \\
+Workflow and Setup & 5.00 \\
+Code Generation Quality & 4.75 \\
+Context and Memory & 4.40 \\
+Architecture and Planning & 4.25 \\
+Problem Solving & 4.50 \\
+Documentation & 5.00 \\
+Operational / Non-Functional & 3.20 \\
+Overall Productivity Impact & 5.00 \\
 \midrule
-\textbf{Overall Weighted Mean} & \textbf{4.31 (Strong)} \\
+\textbf{Overall Weighted Mean} & \textbf{4.31} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{table*}[t]
+\begin{table}[H]
 \caption{Full 26-Criterion Rubric Scores}
 \label{tab:full_rubric}
 \centering
-\begin{tabular}{p{3.2cm}lc}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llc@{}}
 \toprule
 \textbf{Category} & \textbf{Criterion} & \textbf{Score} \\
 \midrule
-\multirow{2}{*}{Workflow \& Setup} & Setup \& Configuration & 5 \\
+\multirow{2}{*}{Workflow \& Setup}
+ & Setup \& Configuration & 5 \\
  & Learning Curve & 5 \\
-\midrule
-\multirow{4}{*}{Code Generation} & Accuracy \& Correctness & 5 \\
+\cmidrule(l){2-3}
+\multirow{4}{*}{Code Generation}
+ & Accuracy \& Correctness & 5 \\
  & Feature Creation & 4 \\
  & Maintainability & 5 \\
  & Code Consistency & 5 \\
-\midrule
-\multirow{5}{*}{Context \& Memory} & Instruction Following & 4 \\
+\cmidrule(l){2-3}
+\multirow{5}{*}{Context \& Memory}
+ & Instruction Following & 4 \\
  & Context Awareness & 5 \\
  & Context Window Limits & 4 \\
  & Token Efficiency & 5 \\
  & Project-Level Instructions & 4 \\
-\midrule
-\multirow{4}{*}{\parbox{3cm}{Architecture \& Planning}} & Feature Planning & 4 \\
+\cmidrule(l){2-3}
+\multirow{4}{*}{Arch.\ \& Planning}
+ & Feature Planning & 4 \\
  & Architecture Summary & 5 \\
  & Multi-Step / Role-Based & 5 \\
  & Sub-Agent Support & 3 \\
-\midrule
-\multirow{4}{*}{Problem Solving} & Bug Finding \& Fixing & 4 \\
+\cmidrule(l){2-3}
+\multirow{4}{*}{Problem Solving}
+ & Bug Finding \& Fixing & 4 \\
  & Iterative Refinement & 4 \\
  & Handling AI Mistakes & 5 \\
  & Tech Debt Identification & 5 \\
-\midrule
-\multirow{5}{*}{Operational} & Security \& IP & 1 \\
+\cmidrule(l){2-3}
+\multirow{5}{*}{Operational}
+ & Security \& IP & 1 \\
  & Cost Considerations & 3 \\
  & Response Time / Latency & 3 \\
  & IDE Integration & 5 \\
  & Rate Limiting & 4 \\
-\midrule
+\cmidrule(l){2-3}
 Documentation & Documentation \& Comments & 5 \\
-\midrule
+\cmidrule(l){2-3}
 Overall Impact & Productivity Observations & 5 \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
 \subsection{Hallucination Rate Comparison}
 Table \ref{tab:hallucination} presents hallucination rate comparisons across frontier models. GLM-5 demonstrates a significantly lower hallucination rate than comparable Claude models.
@@ -203,9 +212,10 @@ Table \ref{tab:hallucination} presents hallucination rate comparisons across fro
 \caption{Hallucination Rate Comparison}
 \label{tab:hallucination}
 \centering
-\begin{tabular}{lc}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lr@{}}
 \toprule
-\textbf{Model} & \textbf{Hallucination Rate} \\
+\textbf{Model} & \textbf{Halluc.\ Rate} \\
 \midrule
 GLM-5 & \textbf{34\%} \\
 Claude Opus 4.6 & 58\% \\
@@ -221,19 +231,26 @@ GLM-5 achieved a score of 89/100 (Grade B) on the multi-persona test. Table \ref
 \caption{Multi-Persona Test Scoring Summary}
 \label{tab:persona_scores}
 \centering
-\begin{tabular}{lcc}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{Section} & \textbf{Max Points} & \textbf{Score} \\
+\textbf{Section} & \textbf{Max} & \textbf{Score} \\
 \midrule
+\multicolumn{3}{@{}l}{\textit{Persona Fidelity}} \\
+\cmidrule(l){1-3}
 A1. Architect Persona & 10 & 9 \\
 A2. Implementer Persona & 10 & 8 \\
 A3. Reviewer Persona & 10 & 10 \\
 A4. Cross-Persona Coherence & 10 & 9 \\
-\midrule
+\cmidrule(l){1-3}
+\multicolumn{3}{@{}l}{\textit{Technical Quality}} \\
+\cmidrule(l){1-3}
 B1. Architectural Soundness & 10 & 8 \\
 B2. Code Quality & 10 & 7 \\
 B3. Review Quality & 10 & 9 \\
-\midrule
+\cmidrule(l){1-3}
+\multicolumn{3}{@{}l}{\textit{Weakness Test}} \\
+\cmidrule(l){1-3}
 C1. Weakness Injection & 15 & 14 \\
 C2. Weakness Detection & 15 & 15 \\
 \midrule
@@ -268,12 +285,12 @@ The most significant friction point observed was GLM-5's execution speed. The Pi
 \textbf{Observed Quote}: ``Painfully slow in large tasks that include changes to a large number of files... Did some research to double check that it wasn't a fault in our end, and found that multiple people were complaining about this very aspect of the model's speed being unbearable in recent times.''
 
 \subsubsection{Planning vs. Execution Asymmetry}
-A consistent pattern emerged: GLM-5 excels at the planning phase but lags in execution speed. The model demonstrated superior codebase analysis and step planning, but the actual code generation for multi-file tasks was notably slower than alternatives. For complex features like the Pinterest board implementation, the planning phase extended to 15--20 minutes of thinking time before code generation began, and the initial implementation required three iterations to achieve production quality.
+A consistent pattern emerged: GLM-5 excels at the planning phase but lags in execution speed. The model demonstrated superior codebase analysis and step planning, but the actual code generation for multi-file tasks was notably slower than alternatives. For complex features like the Pinterest board implementation, the planning phase extended to 15 to 20 minutes of thinking time before code generation began, and the initial implementation required three iterations to achieve production quality.
 
 \textbf{Observed Quote}: ``Through the limited testing we have performed, we found it to be better at analyzing the codebase and planning the steps. The part it falls behind is the execution.''
 
 \subsubsection{Rate Limiting Behavior}
-Rate limiting behavior was moderate---not excessive, but the model repeatedly requested continuation prompts. After approximately 1.5 hours of continuous operation, the terminal became unresponsive and required restart. This threshold is reasonable for most development sessions.
+Rate limiting behavior was moderate but not excessive, though the model repeatedly requested continuation prompts. After approximately 1.5 hours of continuous operation, the terminal became unresponsive and required restart. This threshold is reasonable for most development sessions.
 
 \subsubsection{Sub-Agent Support}
 GLM-5's sub-agent capability is framework-dependent. The model itself supports agent workflows, planning, and tool calling. However, sub-agent orchestration must be implemented by the hosting framework (Claude Code in our evaluation).
@@ -289,43 +306,25 @@ GLM-5 demonstrated mixed results:
 \end{itemize}
 
 \subsection{Feature Creation Iterations}
-Complex feature implementations revealed nuanced behavior. The Pinterest default board feature---a multi-file feature involving 24 files---required three implementation iterations before achieving the desired result. Smaller, self-contained features compiled on the first attempt with high accuracy.
+Complex feature implementations revealed nuanced behavior. The Pinterest default board feature, a multi-file feature involving 24 files, required three implementation iterations before achieving the desired result. Smaller, self-contained features compiled on the first attempt with high accuracy.
 
 \textbf{Observed Pattern}: Features requiring cross-file coordination and architectural integration tend to need refinement iterations, while isolated feature additions succeed on the first attempt. This behavior explains the 4/5 rating for Feature Creation despite strong individual code accuracy.
 
-The planning phase for complex features extended to 15--20 minutes, during which GLM-5 analyzed the codebase and structured the implementation approach. While thorough, this extended thinking time combined with iteration requirements impacts productivity for rapid development workflows.
+The planning phase for complex features extended to 15 to 20 minutes, during which GLM-5 analyzed the codebase and structured the implementation approach. While thorough, this extended thinking time combined with iteration requirements impacts productivity for rapid development workflows.
 
 \subsection{Documentation Generation}
-A consistent strength: GLM-5 excels at proper documentation of codebases. The model generated clear, comprehensive documentation with appropriate formatting and structure. This capability scored 5/5 on the rubric.
+A clear strength: GLM-5 excels at proper documentation of codebases. The model generated clear, comprehensive documentation with appropriate formatting and structure. This capability scored 5/5 on the rubric.
 
 \section{Discussion}
 
 \subsection{The Hallucination Advantage}
-The finding with the most significant implications for production use is GLM-5's hallucination rate. At 34\%, it substantially outperforms Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). This characteristic directly impacts:
-
-\begin{itemize}
-    \item \textbf{Trust calibration}: Developers can place higher confidence in GLM-5's outputs
-    \item \textbf{Debugging overhead}: Fewer fabricated APIs, parameters, or behavioral assumptions
-    \item \textbf{Architectural reasoning}: More accurate analysis of existing systems
-    \item \textbf{Documentation accuracy}: Generated documentation more likely to reflect actual code behavior
-\end{itemize}
-
-For teams evaluating AI assistants for production use, this metric may outweigh raw speed advantages of competing models.
+The most notable finding for production use is GLM-5's hallucination rate. At 34\%, it substantially outperforms Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). This directly affects trust calibration (developers can place higher confidence in outputs), debugging overhead (fewer fabricated APIs or behavioral assumptions), architectural reasoning (more accurate analysis of existing systems), and documentation accuracy (generated docs more likely to reflect actual code behavior). For teams evaluating AI assistants for production use, this metric may outweigh raw speed advantages of competing models.
 
 \subsection{The Speed-Quality Trade-off}
-GLM-5 presents a clear trade-off: superior context retention and lower hallucination at the cost of slower execution. This trade-off is acceptable when:
-
-\begin{itemize}
-    \item Tasks require high accuracy and architectural coherence
-    \item The developer retains architectural ownership and uses the model as an execution engine
-    \item Session length is less critical than output quality
-    \item Multi-file coherence is essential
-\end{itemize}
-
-The trade-off becomes problematic for rapid iteration workflows where sub-second response times are expected.
+GLM-5 presents a clear trade-off: superior context retention and lower hallucination at the cost of slower execution. This trade-off works well when tasks require high accuracy and architectural coherence, the developer retains architectural ownership and uses the model as an execution engine, session length matters less than output quality, and multi-file coherence is essential. It becomes problematic for rapid iteration workflows where sub-second response times are expected.
 
 \subsection{Provider Ecosystem Impact}
-A unique consideration for GLM-5 is the provider ecosystem variability. Unlike proprietary models with unified API endpoints, GLM-5's performance---particularly latency---varies significantly by provider:
+A unique consideration for GLM-5 is the provider ecosystem variability. Unlike proprietary models with unified API endpoints, GLM-5's performance (particularly latency) varies significantly by provider:
 
 \begin{itemize}
     \item \textbf{ZAI Direct}: Optimal performance, higher cost
@@ -336,15 +335,7 @@ A unique consideration for GLM-5 is the provider ecosystem variability. Unlike p
 Organizations must evaluate both cost and performance trade-offs when selecting a provider.
 
 \subsection{Multi-Persona Capability in Practice}
-The multi-persona test score (89/100) validates GLM-5's ability to maintain distinct engineering perspectives across complex technical problems. The model's success in hiding and later detecting an architectural weakness demonstrates:
-
-\begin{itemize}
-    \item Genuine role separation (not merely rephrasing)
-    \item Understanding of production-scale concerns
-    \item Ability to ``think adversarially'' when appropriately prompted
-\end{itemize}
-
-This capability has practical applications for teams wanting a single model to perform multiple review passes with different criteria.
+The multi-persona test score (89/100) validates GLM-5's ability to maintain distinct engineering perspectives across complex technical problems. The model's success in hiding and later detecting an architectural weakness shows genuine role separation (not merely rephrasing), understanding of production-scale concerns, and the ability to ``think adversarially'' when prompted. This is useful for teams wanting a single model to perform multiple review passes with different criteria.
 
 \subsection{The Open-Weights Advantage}
 GLM-5's open-weights nature provides several advantages not captured in rubric scores:
@@ -380,15 +371,17 @@ Two criteria receiving low scores represent genuine friction:
 \section{Conclusion}
 This paper evaluated GLM-5 as an AI coding assistant through a practitioner benchmark grounded in production feature implementation. We address our three research questions as follows:
 
-\textbf{Q1 (Core Capability)}. GLM-5 functions effectively as an AI coding assistant for structured, convention-driven codebases. Its strengths---context retention, architectural reasoning, and documentation generation---consistently scored 5/5. The model maintained coherence across a 24-file feature implementation and achieved 89/100 on the multi-persona architectural test. However, complex feature implementations may require multiple iterations (the Pinterest feature required three attempts), resulting in Feature Planning and Feature Creation scores of 4/5 rather than the perfect scores initially anticipated.
+\textbf{Q1 (Core Capability)}. GLM-5 functions effectively as an AI coding assistant for structured, convention-driven codebases. Its strengths (context retention, architectural reasoning, and documentation generation) consistently scored 5/5. The model maintained coherence across a 24-file feature implementation and achieved 89/100 on the multi-persona architectural test. However, complex feature implementations may require multiple iterations (the Pinterest feature required three attempts), resulting in Feature Planning and Feature Creation scores of 4/5 rather than the perfect scores initially anticipated.
 
-\textbf{Q2 (Operational Characteristics)}. The most significant operational finding is GLM-5's hallucination advantage (34\% vs.\ 58--60\% for comparable Claude models). Latency is the primary friction point, varying by provider from acceptable to problematic. The cost-to-intelligence ratio is competitive, particularly through third-party providers.
+\textbf{Q2 (Operational Characteristics)}. The most significant operational finding is GLM-5's hallucination advantage (34\% vs.\ 58 to 60\% for comparable Claude models). Latency is the primary friction point, varying by provider from acceptable to problematic. The cost-to-intelligence ratio is competitive, particularly through third-party providers.
 
 \textbf{Q3 (Open-Weights Ecosystem)}. GLM-5's open-weights nature provides deployment flexibility and transparency advantages, though the 1.5TB model size makes local deployment impractical. Provider ecosystem variability impacts both cost and performance, requiring careful provider selection.
 
-The overall finding is that GLM-5 is a capable AI coding assistant whose strengths---low hallucination, reliable context retention, strong architectural reasoning---make it particularly suitable for teams prioritizing output accuracy over execution speed. Its weaknesses---provider-dependent latency, execution speed for large tasks---are operational rather than fundamental capability limitations.
+The overall finding is that GLM-5 is a capable AI coding assistant whose strengths (low hallucination, reliable context retention, strong architectural reasoning) make it particularly suitable for teams prioritizing output accuracy over execution speed. Its weaknesses (provider-dependent latency, execution speed for large tasks) are operational rather than fundamental capability limitations.
 
-For teams with mature code review practices and tolerance for longer generation cycles, GLM-5 represents a compelling option whose hallucination advantage and open-weights transparency meaningfully differentiate it from proprietary alternatives.
+For teams with mature code review practices and tolerance for longer generation cycles, GLM-5 is a strong option. Its low hallucination rate and open-weights transparency set it apart from proprietary alternatives.
+
+\balance
 
 \begin{thebibliography}{00}
 \bibitem{chen2021evaluating}
