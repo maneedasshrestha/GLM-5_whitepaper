@@ -23,7 +23,7 @@
 \begin{abstract}
 GLM-5 (Zhipu AI, 2025) is an open-weights model with 1.5 terabytes of parameters and a 200K token context window. We evaluate it as an AI coding assistant through a five-day practitioner benchmark involving real feature implementation in a production SaaS codebase, assessing seven dimensions: workflow integration, code generation quality, contextual reasoning, architectural adherence, problem-solving capability, documentation generation, and operational characteristics.
 
-Using a 26-criterion rubric, a multi-persona architectural test (89/100), and published benchmark triangulation, we find that GLM-5 excels at context retention, architectural planning, and documentation generation, but shows friction in execution speed for large multi-file tasks. GLM-5 exhibits the lowest hallucination rate (34\%) among frontier models tested, compared to Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). These findings offer practical guidance for teams evaluating open-weights AI coding assistants for production use.
+Using a 26-criterion rubric, a multi-persona architectural test (89/100), and published benchmark triangulation, we find that GLM-5 excels at context retention, architectural planning, and documentation generation, but shows friction in execution speed for large multi-file tasks. GLM-5 exhibits the lowest hallucination rate (34\%) among frontier models tested, compared to Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). Notably, GLM-5 also exhibited significant code verbosity, generating approximately twice the lines of code as Gemini 3.1 Pro High for equivalent tasks, despite Gemini achieving a higher pass rate with half the output volume. These findings offer practical guidance for teams evaluating open-weights AI coding assistants for production use.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -50,6 +50,7 @@ The model's most distinctive characteristics include:
     \item \textbf{200K context window}: Reliable long-context retention across extended sessions
     \item \textbf{Low hallucination rate}: 34\% compared to 58 to 60\% for comparable Claude models
     \item \textbf{Limited multi-modality}: No native image processing; relies on external tools
+    \item \textbf{High code verbosity}: Generates substantially more code than comparable models for equivalent tasks
     \item \textbf{Variable inference speed}: Significantly dependent on API provider
 \end{itemize}
 
@@ -282,6 +283,8 @@ The most significant friction point observed was GLM-5's execution speed. The Pi
     \item \textbf{ZAI Direct Subscription}: No significant speed complaints reported
 \end{itemize}
 
+A contributing factor to this latency is GLM-5's code verbosity. Analysis revealed that GLM-5 generates roughly twice the lines of code compared to Gemini 3.1 Pro High for equivalent tasks. Since Gemini achieved a higher pass rate with approximately half the output volume, the additional code does not translate to better outcomes --- it simply takes longer to generate and produces a larger surface area to review.
+
 \textbf{Observed Quote}: ``Painfully slow in large tasks that include changes to a large number of files... Did some research to double check that it wasn't a fault in our end, and found that multiple people were complaining about this very aspect of the model's speed being unbearable in recent times.''
 
 \subsubsection{Planning vs. Execution Asymmetry}
@@ -321,7 +324,7 @@ A clear strength: GLM-5 excels at proper documentation of codebases. The model g
 The most notable finding for production use is GLM-5's hallucination rate. At 34\%, it substantially outperforms Claude Opus 4.6 (58\%) and Claude Opus 4.5 (60\%). This directly affects trust calibration (developers can place higher confidence in outputs), debugging overhead (fewer fabricated APIs or behavioral assumptions), architectural reasoning (more accurate analysis of existing systems), and documentation accuracy (generated docs more likely to reflect actual code behavior). For teams evaluating AI assistants for production use, this metric may outweigh raw speed advantages of competing models.
 
 \subsection{The Speed-Quality Trade-off}
-GLM-5 presents a clear trade-off: superior context retention and lower hallucination at the cost of slower execution. This trade-off works well when tasks require high accuracy and architectural coherence, the developer retains architectural ownership and uses the model as an execution engine, session length matters less than output quality, and multi-file coherence is essential. It becomes problematic for rapid iteration workflows where sub-second response times are expected.
+GLM-5 presents a clear trade-off: superior context retention and lower hallucination at the cost of slower execution and verbose output. Our analysis found that GLM-5 generates approximately twice the lines of code as Gemini 3.1 Pro High for equivalent tasks, yet Gemini achieved a higher pass rate with half the code volume. This verbosity compounds the latency issue --- the model is not only slower per token but produces significantly more tokens to reach the same (or a lesser) outcome. This trade-off works well when tasks require high accuracy and architectural coherence, the developer retains architectural ownership and uses the model as an execution engine, session length matters less than output quality, and multi-file coherence is essential. It becomes problematic for rapid iteration workflows where sub-second response times are expected.
 
 \subsection{Provider Ecosystem Impact}
 A unique consideration for GLM-5 is the provider ecosystem variability. Unlike proprietary models with unified API endpoints, GLM-5's performance (particularly latency) varies significantly by provider:
@@ -354,7 +357,7 @@ Two criteria receiving low scores represent genuine friction:
 
 \textbf{Security \& IP (1/5)}. As an API-accessed model, GLM-5 transmits code to external servers. Organizations handling proprietary codebases must evaluate data handling policies of their chosen provider.
 
-\textbf{Latency (3/5)}. The execution speed for large multi-file tasks is the most significant operational gap. This is not a fundamental model limitation but rather a provider infrastructure issue.
+\textbf{Latency (3/5)}. The execution speed for large multi-file tasks is the most significant operational gap. This is partly a provider infrastructure issue, but is compounded by GLM-5's verbose code generation style --- producing roughly twice the output of Gemini 3.1 Pro High for equivalent tasks, which directly increases generation time.
 
 \section{Limitations}
 
@@ -377,7 +380,7 @@ This paper evaluated GLM-5 as an AI coding assistant through a practitioner benc
 
 \textbf{Q3 (Open-Weights Ecosystem)}. GLM-5's open-weights nature provides deployment flexibility and transparency advantages, though the 1.5TB model size makes local deployment impractical. Provider ecosystem variability impacts both cost and performance, requiring careful provider selection.
 
-The overall finding is that GLM-5 is a capable AI coding assistant whose strengths (low hallucination, reliable context retention, strong architectural reasoning) make it particularly suitable for teams prioritizing output accuracy over execution speed. Its weaknesses (provider-dependent latency, execution speed for large tasks) are operational rather than fundamental capability limitations.
+The overall finding is that GLM-5 is a capable AI coding assistant whose strengths (low hallucination, reliable context retention, strong architectural reasoning) make it particularly suitable for teams prioritizing output accuracy over execution speed. Its weaknesses (provider-dependent latency, code verbosity, execution speed for large tasks) are notable: GLM-5 generated roughly twice the code volume of Gemini 3.1 Pro High while achieving a lower pass rate, indicating that the model reaches similar destinations via a significantly longer route.
 
 For teams with mature code review practices and tolerance for longer generation cycles, GLM-5 is a strong option. Its low hallucination rate and open-weights transparency set it apart from proprietary alternatives.
 
